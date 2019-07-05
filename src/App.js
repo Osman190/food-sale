@@ -7,6 +7,10 @@ import { data } from "./data/data.js";
 
 class App extends React.Component {
   state = { data };
+
+  handleCart = finalProduct => {
+    console.log(finalProduct);
+  };
   render() {
     const products = [...this.state.data];
     console.log(products);
@@ -17,7 +21,9 @@ class App extends React.Component {
           <Route
             exact
             path="/product/:product_id"
-            render={props => <SingleProduct {...props} products={products} />}
+            render={props => (
+              <SingleProduct {...props} products={products} handleCart={this.handleCart} />
+            )}
           />
         </Switch>
       </Router>
