@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 function Product(props) {
   console.log(props);
   return (
-    <div>
+    <div className="container col-6">
       {props.products.map((product, i) => (
-        <li key={i}>
+        <li className="list-item" key={i}>
           <div className="card" style={{ margin: "1em" }}>
             <img
               className="card-img-top"
@@ -23,7 +23,7 @@ function Product(props) {
           <NavLink
             exact={true}
             activeClassName="active bg-white-trans btn btn-primary"
-            className="text-white p-3 d-block"
+            className="p-3 d-block"
             to={`/product/${product.product_id}`}
           >
             View

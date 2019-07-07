@@ -5,12 +5,12 @@ import { data } from "../data/data";
 
 function SingleProduct(props) {
   const [activeTopping, setActiveTopping] = useState(false);
-  const [checkedToppings, toggleCheckedTopping] = useState(0);
-  const [itemQuantity, addItemQuantity] = useState({});
+  const [checkedToppings, toggleCheckedTopping] = useState({});
+  const [itemQuantity, addItemQuantity] = useState(0);
   const singleProduct = data.filter(
     product => props.match.params.product_id === product.product_id
   )[0];
-
+  console.log(itemQuantity);
   return (
     <div>
       <h5 className="card-title">{singleProduct.product}</h5>
@@ -43,10 +43,9 @@ function SingleProduct(props) {
                     onClick={e => {
                       const checkedOnes = {
                         ...checkedToppings,
-                        [index]: toppingOptions.id
+                        [index]: toppingOptions
                       };
                       if (!e.target.checked) delete checkedOnes[index];
-                      console.log(checkedOnes);
                       toggleCheckedTopping(checkedOnes);
                     }}
                   />
@@ -56,19 +55,23 @@ function SingleProduct(props) {
             </ul>
           </li>
         ))}
-        <button onClick={() => addItemQuantity(itemQuantity + 1)}>-</button>
-        <button onClick={() => addItemQuantity(itemQuantity > 1 ? itemQuantity - 1 : 0)}>+</button>
+        <button onClick={() => addItemQuantity(itemQuantity > 1 ? itemQuantity - 1 : 0)}>-</button>
+        <button onClick={() => addItemQuantity(itemQuantity + 1)}>+</button>
         <button
           onClick={() =>
             props.handleCart({
               product: singleProduct,
               quantity: itemQuantity,
-              toppings: checkedToppings
+              toppings: checkedToppings,
+              totalPrice: itemQuantity * singleProduct.price
             })
           }
         >
           add to Bucket
         </button>
+        <div className="text-center alert alert-secondary ml-auto col-2 p-0">
+          <b>Total: {props.totalPrice}$</b>
+        </div>
       </div>
 
       <NavLink
