@@ -10,21 +10,15 @@ function SingleProduct(props) {
   const singleProduct = data.filter(
     product => props.match.params.product_id === product.product_id
   )[0];
-  console.log(itemQuantity);
   return (
-    <div>
+    <div className="container col-6 card">
+      <img className="card-img-top" src={singleProduct.product_image} alt="" />
       <h5 className="card-title">{singleProduct.product}</h5>
-      <p>minimum order: 1</p>
-      <p className="">{singleProduct.price}</p>
+      <p className="card-text">minimum order: 1</p>
       <p className="card-text">{singleProduct.product_description}</p>
+      <p className="card-text">price per person: {singleProduct.price} €</p>
 
-      <img
-        className="card-img-top"
-        src={singleProduct.product_image}
-        style={{ width: 80 }}
-        alt=""
-      />
-      <div>
+      <div className="container">
         Toppings:{" "}
         {singleProduct.toppings.map((item, i) => (
           <li key={i}>
@@ -55,29 +49,37 @@ function SingleProduct(props) {
             </ul>
           </li>
         ))}
-        <button onClick={() => addItemQuantity(itemQuantity > 1 ? itemQuantity - 1 : 0)}>-</button>
-        <button onClick={() => addItemQuantity(itemQuantity + 1)}>+</button>
         <button
-          onClick={() =>
+          className="btn btn-light"
+          onClick={() => addItemQuantity(itemQuantity > 1 ? itemQuantity - 1 : 0)}
+        >
+          -
+        </button>
+        <button className="btn btn-success" onClick={() => addItemQuantity(itemQuantity + 1)}>
+          +
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={e => {
             props.handleCart({
               product: singleProduct,
               quantity: itemQuantity,
               toppings: checkedToppings,
               totalPrice: itemQuantity * singleProduct.price
-            })
-          }
+            });
+          }}
         >
           add to Bucket
         </button>
-        <div className="text-center alert alert-secondary ml-auto col-2 p-0">
-          <b>Total: {props.totalPrice}$</b>
+        <div>
+          <span>Orders per person: {itemQuantity}</span>
         </div>
       </div>
 
       <NavLink
         exact={true}
         activeClassName="active bg-white-trans"
-        className="text-white p-3 d-block"
+        className="btn btn-primary"
         to="/"
       >
         Back to Products
