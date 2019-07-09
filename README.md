@@ -52,7 +52,7 @@ To run the tests units open different terminal tap and run the command:
 the tests should pass for the functions and jsx elements are existing
 
 ```
-npm run jest
+npm run test
 ```
 
 # Deployment
