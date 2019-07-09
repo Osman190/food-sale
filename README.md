@@ -57,7 +57,13 @@ npm run jest
 
 # Deployment
 
-For the deployment we are going to use AWS. the instructions for it comes later
+For the deployment we are going to use AWS, you need to build folder by running
+
+```
+npm run build
+```
+
+- the instructions for deployment comes later
 
 # Built With
 
